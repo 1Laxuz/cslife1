@@ -1,0 +1,457 @@
+/* =========== Google Fonts ============ */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700;800&display=swap');
+
+/* =============== Globals ============== */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lexend', sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --violet: #721a75;
+  --white: #fff;
+  --gray: #f5f5f5;
+  --black1: #222;
+  --black2: #999;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+ 
+/*.container {
+  position: relative;
+  width: 100%;
+}*/
+/* =============== END Globals ============== */
+
+
+
+/* =============== SIDENAV ================ */
+.sideNav {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  left: -300px;
+  background: var(--violet);
+  border-left: 10px solid var(--violet);
+  transition: left 0.3s ease;
+  overflow: hidden;
+}
+.sideNav.active{
+  left: 0px;
+}
+.sideNav .sideNav-branding {
+  position: relative;
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  top:5px;
+  right: 24px;
+}
+.sideNav .sideNav-branding h1,h3 {
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+}
+.sideNav .sideNav-branding .toggle{
+  color: white;
+}
+
+
+.sideNav ul {
+  position: relative;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  margin-top: 5px;
+}
+.sideNav ul li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  
+}
+.sideNav ul li a {
+  position: relative;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: var(--white);
+  box-sizing: border-box;
+  border-top: 2px solid rgba(0,0,0,0);
+}
+.sideNav ul li a .icon {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 75px;
+  text-align: center;
+}
+
+.sideNav ul li a .title {
+  position: relative;
+  display: block;
+  padding: 0 10px;
+  height: 60px;
+  line-height: 60px;
+  text-align: start;
+  white-space: nowrap;
+  
+}
+
+
+.sideNav ul li:hover,
+.sideNav ul li.hovered {
+  background-color: var(--white);
+}
+
+
+
+
+.sideNav ul li:hover a,
+.sideNav ul li.hovered a {
+  color: var(--blue);
+}
+
+/* --------- curve outside sidenav ---------- */
+.sideNav ul li:hover a::before,
+.sideNav ul li.hovered a::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px 35px 0 10px var(--white);
+  pointer-events: none;
+}
+.sideNav ul li:hover a::after,
+.sideNav ul li.hovered a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px -35px 0 10px var(--white);
+  pointer-events: none;
+}
+
+/* ===================== pagbukas ng sidebarNav ===================== */
+
+
+/* ===================== headerNAV ===================== */
+.headerNav {
+  position: relative;
+  width: 100%;
+  background: var(--white);
+}
+.headerNav .headerNavtopbar .toggle {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.headerNav.active{
+  left: 300px;
+}
+
+
+.headerNavtopbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.headerNav .headerNavtopbar .headings{
+  color: var(--violet);
+  position: relative;
+  font-size: 30px;
+}
+.headerNav .headerNavtopbar .toggle{
+  position: relative;
+  left: 10px
+}
+
+
+
+.headerNav .headerNavtopbar .user {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  right: 20px;
+}
+
+.headerNav .headerNavtopbar .user img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+/* ======================= STATUS Cards ====================== */
+.cardGroup {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+.cardGroup.active{
+  left: 300px;
+}
+
+.cardGroup .cardStatus {
+  position: relative;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.cardGroup .cardStatus .cardNumber {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: var(--violet);
+}
+
+.cardGroup .cardStatus .cardName {
+  color: var(--black2);
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.cardGroup .cardStatus .cardIcon {
+  font-size: 3.5rem;
+  color: var(--black2);
+}
+
+.cardGroup .cardStatus:hover {
+  background: var(--violet);
+}
+.cardGroup .cardStatus:hover .cardNumber,
+.cardGroup .cardStatus:hover .cardName,
+.cardGroup .cardStatus:hover .cardIcon {
+  color: var(--white);
+}
+
+/* ======================= main board ====================== */
+.mainBoard {
+  position: relative;
+  display: grid;
+  
+  min-height: 490px;
+  padding: 0px 20px 0px 20px;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+}
+.mainBoard.active{
+  left: 300px;
+}
+
+
+.mainBoard .cardMain {
+  position: relative;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
+}
+.mainBoard .cardMain .cardName {
+  font-size: 25px;
+  color: var(--violet);
+}
+  
+
+
+/*-------------------------------------------------------------------Registration css*/
+.form-container{
+  min-height: 100%;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+}
+
+.form-container form{
+  padding:20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  background: #fff;
+  text-align: center;
+  width: 700px;
+  display: block;
+ text-decoration: none;
+}
+.backer{
+ display: flex;
+ position: relative;
+ justify-content: center;
+  align-items: center;
+}
+.form-container form h3{
+  font-size: 30px;
+  text-transform: uppercase;
+  color:#333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container form input,
+.form-container form select{
+  width: 100%;
+  padding:10px 15px;
+  font-size: 17px;
+  margin: 4px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+.form-container form select option{
+  background: #fff;
+}
+
+.form-container form .form-btn{
+  background: #fcd0fe;
+  color:#813084;
+  text-transform: capitalize;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.form-container form .form-btn:hover{
+  background: #813084;
+  color:#fff;
+}
+
+.form-container form p,a{
+  color:#333;
+  text-decoration: none;
+}
+
+.form-container form .error-msg{
+  margin:10px 0;
+  display: block;
+  background: crimson;
+  color:#fff;
+  border-radius: 5px;
+  font-size: 20px;
+  padding:10px;
+}
+.logins{
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+height: 100%;
+}
+.logins form{
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px 10px rgba(0,0,0,.1);
+  background: #eee;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;;
+ text-decoration: none;
+
+}
+/*====================== CRUD display ========================*/
+.displayer {
+  position: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 490px;
+  width: 50%;
+
+}
+/* ====================== Responsive WEB ========================== */
+@media (max-width: 991px) {
+  .sideNav {
+    left: -300px;
+    transition: left 0.5s ease;
+  }
+  
+  .sideNav.active{
+    left: 0px;
+    transition: left 0.3s ease;
+  }
+  .headerNav {
+    width: 100%;
+    left: 0px;
+  }
+  .cardGroup {
+    left: 0px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+ .mainBoard {
+    grid-template-columns: repeat(2, 4fr);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .mainBoard {
+    grid-template-columns: repeat(1, 1fr); ;
+    left: 0px;
+    overflow: auto;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .cardGroup {
+    grid-template-columns: repeat(2, 1fr);
+    
+  }
+  .cardStatus h2 {
+    font-size: 20px;
+  }
+  .user {
+    min-width: 40px;
+  }
+  .mainBoard {
+    left: 0px;
+    grid-template-columns: repeat(2 1fr); ;
+    
+  }
+
+}
