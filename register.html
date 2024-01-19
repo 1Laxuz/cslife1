@@ -157,7 +157,7 @@
 
         createUserWithEmailAndPassword(auth, email.value, password.value)
         .then((credentials) =>{
-                set(ref(db, 'users/' + credentials.user.uid),{
+                set(ref(db, 'users/'+ credentials.user.uid),{
                     firstname: fname.value,
                     lastname: lname.value,
                     age: age.value,
@@ -169,6 +169,12 @@
                     userType: userType.value
                 })
                 alert("Account Created");
+                
+                set(ref(db, 'tablesScore/' + credentials.user.uid),{
+                    firstname: fname.value,
+                    lastname: lname.value,
+                })
+                console.log("dito222")
         })
         .catch((error)=>{
             console.log(error);
