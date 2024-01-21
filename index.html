@@ -86,29 +86,30 @@
           let former = document.getElementById('former'); 
       
           let SignInUser = evt => {
-            console.log("dito");
+           
               evt.preventDefault();
               signInWithEmailAndPassword(auth, email.value, password.value)
               .then((credentials) =>{
                       get(child(dbref, 'users/' + credentials.user.uid)).then((snapshot)=>{
+                        var userType = snapshot.val().userType;
                         if(snapshot.exist){
                           sessionStorage.setItem("user-info", JSON.stringify({
                             firstname: snapshot.val().firstname,
-                            lastname: snapshot.val().lastname
+                            lastname: snapshot.val().lastname, 
                         }))
-                        sessionStorage.setItem("user-creds", JSON,stringify(credentials.user));
+                        
+                        sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
                       }
-                      if (get(child('user_type')) == "user"){
-                        window.location.href = 'user_page.html';
+                      if (userType === "user") {
+                        window.location.href = "user_page.html";
+                      } else if (userType === "admin") {
+                        window.location.href = "admin_page.html";
                       }
-                    else{
-                      window.location.href = 'admin_page.html';
-                    }
                     })
               })
               .catch((error)=>{
                   console.log(error);
-                  alert(error.message); 
+                  alert(error.message);  
               })
               
           }

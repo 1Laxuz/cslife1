@@ -267,7 +267,6 @@ body {
 /* ======================= main board ====================== */
 .mainBoard {
   position: relative;
-  display: grid;
   
   min-height: 490px;
   padding: 0px 20px 0px 20px;
@@ -288,11 +287,16 @@ body {
   display: flex;
   justify-content: space-between;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
 
 }
 .mainBoard .cardMain .cardName {
   font-size: 25px;
   color: var(--violet);
+}
+.mainBoard .cardMain .cardContents {
+  width: 700px;
+  height: 230px;
 }
   
 

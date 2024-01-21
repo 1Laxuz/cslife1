@@ -20,7 +20,7 @@
         </div>
             <ul>
                 <li>
-                    <a href="admin_page.php">
+                    <a href="admin_page.html">
                         <span class="icon">
                         <span class="material-icons-round">space_dashboard</span>
                         </span>
@@ -29,7 +29,7 @@
                 </li>
 
                 <li>
-                    <a href="display.php">
+                    <a href="display.html">
                         <span class="icon">
                         <span class="material-icons-round">people</span>
                         </span>
@@ -38,7 +38,7 @@
                 </li>
 
                 <li>
-                    <a href="register.php">
+                    <a href="register.html">
                     <span class="icon">
                          <span class="material-icons-round">group_add</span> 
                          </span> 
@@ -47,7 +47,7 @@
                 </li>
 
                 <li>
-                    <a href="about.php">
+                    <a href="about.html">
                     <span class="icon">
                         <span class="material-icons-round">help</span>
                         </span> 
@@ -56,7 +56,7 @@
                 </li>
 
                 <li>
-                    <a href="logout.php">
+                    <a href="logout.html">
                     <span class="icon">
                     <span class="material-icons-round">logout</span>
                     </span> 
@@ -139,7 +139,7 @@
   
     const db = getDatabase();
     const auth = getAuth();
-    console.log(app);
+
 
     let fname = document.getElementById('Fname');
     let lname = document.getElementById('Lname');
@@ -170,9 +170,13 @@
                 })
                 alert("Account Created");
                 
-                set(ref(db, 'tablesScore/' + credentials.user.uid),{
-                    firstname: fname.value,
-                    lastname: lname.value,
+                set(ref(db, 'tablesScore/' + credentials.user.uid + 'scores'),{
+                   scores1: 3,
+                   scores2: 5,
+                   scores3: 9,
+                   scores4: 8,
+                   scores5: 1,
+                   scores6: 6
                 })
                 console.log("dito222")
         })

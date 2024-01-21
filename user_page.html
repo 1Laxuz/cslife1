@@ -9,6 +9,7 @@
     <!--google icons Integration-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         </div>
             <ul>
                 <li>
-                    <a href="user_page.php">
+                    <a href="user_page.html">
                         <span class="icon">
                         <span class="material-icons-round">space_dashboard</span>
                         </span>
@@ -28,18 +29,9 @@
                     </a>
                 </li>
                 <li>
-
-                <li>
-                    <a href="file_upload.php">
-                    <span class="icon">
-                        <span class="material-icons-round">drive_folder_upload</span>
-                        </span> 
-                        <span class="title">File Upload</span>
-                    </a>
-                </li>
                 
                 <li>
-                    <a href="about.php">
+                    <a href="about.html">
                     <span class="icon">
                         <span class="material-icons-round">help</span>
                         </span> 
@@ -48,7 +40,7 @@
                 </li>
 
                 <li>
-                    <a href="logout.php">
+                    <a href="index.html">
                     <span class="icon">
                     <span class="material-icons-round">logout</span>
                     </span> 
@@ -59,7 +51,7 @@
     </div>
     
         <!-- =============== TOP NAV ================ -->
-    <div class="headerNav">
+        <div class="headerNav">
             <div class="headerNavtopbar">
             <div class="toggle">
                 <span class="material-icons-round">menu</span>
@@ -69,10 +61,52 @@
                 </div>
 
                 <div class="user">
+                
                     <img src="img/student.png" alt="">
                 </div>
             </div>
     </div>
+
+        <div class="mainBoard">
+            <div class="cardMain">
+                <div>
+                    <div class="cardName">My Scores</div>
+                    <div class="cardContents" id="barchart_values"></div>
+                </div>
+              
+            </div>
+            <div class="cardMain">
+                <div>
+                    <div class="cardName">Analytics</div>
+                    <div class="cardContents" id="curve_chart"></div>
+                </div>
+           
+            </div>
+        </div>
+
+        <script type="module">
+          
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, set, ref, child, get, update, remove, onValue} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+            // Initialize Firebase
+            const firebaseConfig = {
+            apiKey: "AIzaSyDKFZhYibbIxtFlpl68usbtUpk3Dobcvog",
+            authDomain: "cslife-9797d.firebaseapp.com",
+            databaseURL: "https://cslife-9797d-default-rtdb.firebaseio.com",
+            projectId: "cslife-9797d",
+            storageBucket: "cslife-9797d.appspot.com",
+            messagingSenderId: "734759036591",
+            appId: "1:734759036591:web:37b5060bcee292b826965a",
+            measurementId: "G-84WMFTCM25"
+          };  
+          const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const dbref = ref(db);
+
+           
+        </script>
     <!-- =========== Scripts =========  -->
     <script src="js/scripts.js"></script>
 </body>
