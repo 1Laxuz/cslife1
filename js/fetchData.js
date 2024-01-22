@@ -27,17 +27,15 @@ const handleAuthStateChange = async (user) => {
 
             // Fetch user data using UID
             const userSnapshot = await get(ref(database, 'users/' + uid));
-            const Snapshot = await get(ref(database, 'users/'));
             const userData = userSnapshot.val();
-            const viewData = Snapshot.val();
+            
             console.log(userData);
            
             
             // Determine the user type
             switch (userData?.userType) {
                 case 'user':
-                   // console.log(viewData.firstname);
-                    //document.getElementById('firstname').innerHTML = `<p>${viewData.firstname}</p>`;
+            
                     console.log('User is a regular user');
                     if (!initialSignIn) {
                         window.location.href = "user_page.html";
@@ -45,7 +43,7 @@ const handleAuthStateChange = async (user) => {
                     break;
                 case 'admin':
                    // document.getElementById('firstname').innerHTML = `<p>${userData.firstname}</p>`;
-                    console.log('User is an admin');
+                    console.log('User is an admin');           
                     if (!initialSignIn) {
                         window.location.href = "admin_page.html";
                     }
@@ -65,7 +63,7 @@ const handleAuthStateChange = async (user) => {
             const scoreSnapshot = await get(ref(database, 'tablesScore/' + uid));
             const scoreData = scoreSnapshot.val();
             
-            if (viewData) {
+            if (userData) {
                 // Display scores in their respective containers
                 document.getElementById('scores1').innerHTML = `<p>${scoreData.scores1}</p>`;
                 document.getElementById('scores2').innerHTML = `<p>${scoreData.scores2}</p>`;
@@ -77,16 +75,11 @@ const handleAuthStateChange = async (user) => {
                 // Handle case when no score data is found
                 console.log('No score data found');
             }
-        
-
             // Make scoreData accessible globally
+
             window.scoreData = scoreData;
-            //window.adminData = adminData;
-            // Trigger the chart creation after fetching data
             const event = new Event('dataFetched');
             window.dispatchEvent(event);
-           /* const chartevent = new Event('chartFetched');
-            window.dispatchEvent(chartevent);*/
         } catch (error) {
             console.error('Error getting user data:', error);
         }
@@ -99,12 +92,15 @@ const handleAuthStateChange = async (user) => {
         }
     }
 };
+
+
+
 window.addEventListener('dataFetched', () => {
     const canvas = document.getElementById('scoreChart');
     const ctx = canvas.getContext('2d');
 
     new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: Object.keys(window.scoreData || {}),
             datasets: [{
@@ -112,7 +108,7 @@ window.addEventListener('dataFetched', () => {
                 data: Object.values(window.scoreData || {}),
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {
@@ -126,10 +122,21 @@ window.addEventListener('dataFetched', () => {
     });
 });
 
+
 async function getTotalUsersCount() {
     const usersSnapshot = await get(ref(database, 'users/'));
     const usersData = usersSnapshot.val();
     if (usersData) {
+        const programCounts = {};
+        Object.values(usersData).forEach(user => {
+            // Check if the user has a selectedProgram property
+            if (user && user.selectedProgram) {
+                // Increment the count for the selected program
+                programCounts[user.selectedProgram] = (programCounts[user.selectedProgram] || 0) + 1;
+            }
+        });
+        console.log(programCounts);
+        displayBarChart(programCounts);
         // Filter users with userType "user"
         const userCount = Object.values(usersData)
             .filter(user => user.userType === 'user')
@@ -158,13 +165,46 @@ async function getTotalUsersCount() {
         console.log('No user data found');
     }
 }
+const displayBarChart = (data) => {
+    // Extract labels and data from the programCounts object
+    const labels = Object.keys(data);
+    const counts = Object.values(data);
+
+    // Access the canvas and context
+    const canvas = document.getElementById('adminChart');
+    const ctx = canvas.getContext('2d');
+
+    // Create the bar chart
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'User Counts',
+                data: counts,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+};
+
+// Call the function
+getTotalUsersCount();
 
 // Call the function to get and display the total user count
 getTotalUsersCount();
 
 // Add the combined event listener
 onAuthStateChanged(auth, handleAuthStateChange);
-
 document.getElementById('logoutButton').addEventListener('click', function (event) {
     event.preventDefault();
     signOut(auth)
@@ -176,32 +216,3 @@ document.getElementById('logoutButton').addEventListener('click', function (even
             console.error('Sign-out error:', error);
         });
 });
-
-
-
-/*window.addEventListener('chartFetched', () => {
-    const canvas = document.getElementById('adminChart');
-    const ctx = canvas.getContext('2d');
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: Object.keys(window.adminData || {}),
-            datasets: [{
-                label: 'Scores',
-                data: Object.values(window.adminData || {}),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 10
-                }
-            }
-        }
-    });
-});*/
