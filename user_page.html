@@ -9,6 +9,7 @@
     <!--google icons Integration-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+ 
     
 </head>
 
@@ -31,7 +32,7 @@
                 <li>
                 
                 <li>
-                    <a href="about.html">
+                    <a href="about_user.html">
                     <span class="icon">
                         <span class="material-icons-round">help</span>
                         </span> 
@@ -40,9 +41,9 @@
                 </li>
 
                 <li>
-                    <a href="index.html">
+                    <a href=""id="logoutButton">
                     <span class="icon">
-                    <span class="material-icons-round">logout</span>
+                    <span class="material-icons-round" >logout</span>
                     </span> 
                         <span class="title">Log Out</span>
                     </a>
@@ -67,46 +68,69 @@
             </div>
     </div>
 
+    <div class="cardGroup">
+        <div class="cardStatus">
+            <div>
+                <div class="cardName">Room 101 Score:</div>
+                <div class="cardNumber" id="scores1"></div>
+            </div>
+        </div>
+        <div class="cardStatus">
+            <div>
+                <div class="cardName">Room 102 Score:</div>
+                <div class="cardNumber"id="scores2">11</div>
+            </div>
+        </div>
+        <div class="cardStatus">
+            <div>
+                <div class="cardName">Room 103 Score:</div>
+                <div class="cardNumber"id="scores3">11</div>
+            </div>
+        </div>
+        <div class="cardStatus">
+            <div>
+                <div class="cardName">Room 104 Score:</div>
+                <div class="cardNumber"id="scores4">11</div>  
+            </div>
+        </div>
+        <div class="cardStatus">
+            <div>
+                <div class="cardName">Room 105 Score:</div>
+                <div class="cardNumber"id="scores5">11</div>
+            </div>
+        </div>
+        <div class="cardStatus">
+            <div>
+                <div class="cardName">Room 106 Score:</div>
+                <div class="cardNumber"id="scores6">11</div>
+
+            </div>
+        </div>
+    </div>
+
+
         <div class="mainBoard">
             <div class="cardMain">
                 <div>
-                    <div class="cardName">My Scores</div>
-                    <div class="cardContents" id="barchart_values"></div>
+                    <div class="cardName">Visualization</div>
+                    <canvas id="scoreChart" width="400" height="300"></canvas>
                 </div>
-              
-            </div>
-            <div class="cardMain">
-                <div>
-                    <div class="cardName">Analytics</div>
-                    <div class="cardContents" id="curve_chart"></div>
+                <div class="cardDescription">
+                    <div>
+                        <div class="cardName">Discription</div>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quibusdam ab, <br>
+                            consectetur expedita illo odio, cum numquam aperiam voluptates magnam praesentium quam? <br>
+                             Quibusdam dolor sequi minima, veritatis inventore ex ullam.</p>
+                    </div>
                 </div>
-           
             </div>
         </div>
 
-        <script type="module">
-          
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, set, ref, child, get, update, remove, onValue} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/fetchData.js"></script>
 
-
-            // Initialize Firebase
-            const firebaseConfig = {
-            apiKey: "AIzaSyDKFZhYibbIxtFlpl68usbtUpk3Dobcvog",
-            authDomain: "cslife-9797d.firebaseapp.com",
-            databaseURL: "https://cslife-9797d-default-rtdb.firebaseio.com",
-            projectId: "cslife-9797d",
-            storageBucket: "cslife-9797d.appspot.com",
-            messagingSenderId: "734759036591",
-            appId: "1:734759036591:web:37b5060bcee292b826965a",
-            measurementId: "G-84WMFTCM25"
-          };  
-          const app = initializeApp(firebaseConfig);
-        const db = getDatabase();
-        const dbref = ref(db);
-
-           
-        </script>
+    
+        
     <!-- =========== Scripts =========  -->
     <script src="js/scripts.js"></script>
 </body>

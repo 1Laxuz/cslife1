@@ -38,7 +38,6 @@
             <select name="user_type" id="user_type">
                 <option value="" disabled selected>Select user type</option>
                 <option value="user">User</option>
-                <option value="admin">Admin</option>
             </select>
 
             <button type="submit"  class="form-btn">Create User</button>
@@ -94,7 +93,6 @@
                     lastname: lname.value,
                     age: age.value,
                     email: email.value,
-                    userId: "",
                     password: password.value,
                     selectedProgram: programType.value,
                     section: section.value,
@@ -110,7 +108,7 @@
                    scores5: 1,
                    scores6: 6
                 })
-                console.log("dito222")
+                
         })
         .catch((error)=>{
             console.log(error);
@@ -120,6 +118,6 @@
     }
     former.addEventListener('submit', RegisterUser);
   </script>
-  <script src="js/scripts.js"></script>
+
 </body>
 </html>

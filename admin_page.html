@@ -9,8 +9,6 @@
     <!--google icons Integration-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-
-
 </head>
 
 <body>
@@ -58,12 +56,11 @@
                 </li>
 
                 <li>
-                    <a href="index.html" onclick="logout()">
+                    <a href=""id="logoutButton">
                     <span class="icon">
-                    <span class="material-icons-round">logout</span>
+                    <span class="material-icons-round" >logout</span>
                     </span> 
                         <span class="title">Log Out</span>
-                      
                     </a>
                 </li>
             </ul>
@@ -77,9 +74,9 @@
                 <div class="headings">
                     <h1>CS : LIFE</h1>
                 </div>
-
+             
                 <div class="user">
-                
+                    
                     <img src="img/software-engineer.png" alt="">
                 </div>
             </div>
@@ -88,37 +85,54 @@
     <div class="cardGroup">
                 <div class="cardStatus">
                     <div>
-                        <div class="cardNumber">15</div>
-                        <div class="cardName">Total Students</div>
+                        <div class="cardName">Total Students in Database</div>
+                        <div class="cardNumber" id="totalUsersCount"></div>
                     </div>
                 </div>
                 <div class="cardStatus">
                     <div>
-                        <div class="cardNumber">5</div>
-                        <div class="cardName">My Section students</div>
+                        <div class="cardName">Total CS Students</div>
+                        <div class="cardNumber" id="countCS"></div>
                     </div>
                 </div>
+                <div class="cardStatus">
+                    <div>
+                        <div class="cardName">Total IT Students</div>
+                        <div class="cardNumber" id="countIT"></div>
+                    </div>
+                </div>
+                <div class="cardStatus">
+                    <div>
+                        <div class="cardName">Total IS Students</div>
+                        <div class="cardNumber" id="countIS"></div>
+                    </div>
+                </div>
+                <div class="cardStatus">
+                    <div>
+                        <div class="cardName">Total Admin in Database</div>
+                        <div class="cardNumber" id="totalAdminCount"></div>
+                    </div>
+                </div>
+               
     </div>
                 <!-- ================= MAINNN ================ -->
         <div class="mainBoard">
                 <div class="cardMain">
                     <div>
-                        <div class="cardName">New Students</div>
-                    </div>
-                    <div class="cardIcon">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="cardMain">
-                    <div>
-                        <div class="cardName">Analytics</div>
-                    </div>
-                    <div class="cardIcon">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <div class="cardName">Visualization</div>
+                        <canvas id="adminChart" width="400" height="300"></canvas>
+                        <div class="cardName">Visualization</div>
+                        <canvas id="adminChart" width="400" height="300"></canvas>
+                         
                     </div>
                 </div>
+                
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="module" src="js/fetchData.js"></script>
+        <script type="module" src="js/adminchart.js"></script>
+        
+   
     <!-- =========== Scripts =========  -->
     <script src="js/scripts.js"></script>
 </body>
