@@ -69,8 +69,8 @@ const handleAuthStateChange = async (user) => {
                 document.getElementById('scores2').innerHTML = `<p>${scoreData.scores2}</p>`;
                 document.getElementById('scores3').innerHTML = `<p>${scoreData.scores3}</p>`;
                 document.getElementById('scores4').innerHTML = `<p>${scoreData.scores4}</p>`;
-                document.getElementById('scores5').innerHTML = `<p>${scoreData.scores3}</p>`;
-                document.getElementById('scores6').innerHTML = `<p>${scoreData.scores4}</p>`;
+                document.getElementById('scores5').innerHTML = `<p>${scoreData.scores5}</p>`;
+                document.getElementById('scores6').innerHTML = `<p>${scoreData.scores6}</p>`;
             } else {
                 // Handle case when no score data is found
                 console.log('No score data found');
