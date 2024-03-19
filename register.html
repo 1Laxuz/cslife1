@@ -118,21 +118,21 @@
 
 <script type="module">
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDKFZhYibbIxtFlpl68usbtUpk3Dobcvog",
-      authDomain: "cslife-9797d.firebaseapp.com",
-      databaseURL: "https://cslife-9797d-default-rtdb.firebaseio.com",
-      projectId: "cslife-9797d",
-      storageBucket: "cslife-9797d.appspot.com",
-      messagingSenderId: "734759036591",
-      appId: "1:734759036591:web:37b5060bcee292b826965a",
-      measurementId: "G-84WMFTCM25"
-    };  
+        apiKey: "AIzaSyD_5NegiAoWx-xdiS18vGFf3ws0TIBSBcE",
+  authDomain: "cslife2-a7b38.firebaseapp.com",
+  databaseURL: "https://cslife2-a7b38-default-rtdb.firebaseio.com",
+  projectId: "cslife2-a7b38",
+  storageBucket: "cslife2-a7b38.appspot.com",
+  messagingSenderId: "145436502639",
+  appId: "1:145436502639:web:f5dcd44f6d9463779e7b9a"
+  };
+  //measurementId: "G-84WMFTCM25"
     
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -162,7 +162,6 @@
                     lastname: lname.value,
                     age: age.value,
                     email: email.value,
-                    userId: "",
                     password: password.value,
                     selectedProgram: programType.value,
                     section: section.value,
@@ -170,7 +169,7 @@
                 })
                 alert("Account Created");
                 
-                set(ref(db, 'tablesScore/' + credentials.user.uid + 'scores'),{
+                set(ref(db, 'tablesScore/' + credentials.user.uid ),{
                    scores1: 3,
                    scores2: 5,
                    scores3: 9,
@@ -188,6 +187,7 @@
     }
     former.addEventListener('submit', RegisterUser);
   </script>
+
   <script src="js/scripts.js"></script>
 </body>
 </html>

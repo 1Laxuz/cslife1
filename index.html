@@ -16,7 +16,7 @@
         <div class="logins">
         <form action="" method="post" id="former">
               <div class="card bg-dark text-white" style="border-radius: 1rem;">
-        <section class="" >
+        <section >
           <div class="container py-3 h-100">
             <div class="row d-flex justify-content-center align-items-center" >
                   <div class="card-body p-5 text-center">
@@ -49,21 +49,22 @@
 
         <script type="module">
           // Import the functions you need from the SDKs you need
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-          import { getDatabase, set, ref, child, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-          import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+          import { getDatabase, set, ref, child, get } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+          import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
       
       
+          
           const firebaseConfig = {
-            apiKey: "AIzaSyDKFZhYibbIxtFlpl68usbtUpk3Dobcvog",
-            authDomain: "cslife-9797d.firebaseapp.com",
-            databaseURL: "https://cslife-9797d-default-rtdb.firebaseio.com",
-            projectId: "cslife-9797d",
-            storageBucket: "cslife-9797d.appspot.com",
-            messagingSenderId: "734759036591",
-            appId: "1:734759036591:web:37b5060bcee292b826965a",
-            measurementId: "G-84WMFTCM25"
-          };  
+            apiKey: "AIzaSyD_5NegiAoWx-xdiS18vGFf3ws0TIBSBcE",
+  authDomain: "cslife2-a7b38.firebaseapp.com",
+  databaseURL: "https://cslife2-a7b38-default-rtdb.firebaseio.com",
+  projectId: "cslife2-a7b38",
+  storageBucket: "cslife2-a7b38.appspot.com",
+  messagingSenderId: "145436502639",
+  appId: "1:145436502639:web:f5dcd44f6d9463779e7b9a"
+          };
+             //measurementId: "G-84WMFTCM25"
           
           // Initialize Firebase
           const app = initializeApp(firebaseConfig);
@@ -76,34 +77,49 @@
           let former = document.getElementById('former'); 
       
           let SignInUser = evt => {
-           
-              evt.preventDefault();
-              signInWithEmailAndPassword(auth, email.value, password.value)
-              .then((credentials) =>{
-                      get(child(dbref, 'users/' + credentials.user.uid)).then((snapshot)=>{
+            evt.preventDefault();
+            signInWithEmailAndPassword(auth, email.value, password.value)
+            .then((credentials) => {
+                get(child(dbref, 'users/' + credentials.user.uid))
+                .then((snapshot) => {
+                    if(snapshot.exists()) {
                         var userType = snapshot.val().userType;
-                        if(snapshot.exist){
-                          sessionStorage.setItem("user-info", JSON.stringify({
+                        sessionStorage.setItem("user-info", JSON.stringify({
                             firstname: snapshot.val().firstname,
                             lastname: snapshot.val().lastname, 
                         }))
-                        
                         sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                      }
-                      if (userType === "user") {
-                        window.location.href = "user_page.html";
-                      } else if (userType === "admin") {
-                        window.location.href = "admin_page.html";
-                      }
-                    })
-              })
-              .catch((error)=>{
-                  console.log(error);
-                  alert(error.message);  
-              })
-              
-          }
-          former.addEventListener('submit', SignInUser);
+
+                        if (userType === "user") {
+                            window.location.href = "user_page.html";
+                        } 
+                        else if (userType === "teacher") {
+                            window.location.href = "teacher_page.html";
+                        }
+                        else if (userType === "admin") {
+                            window.location.href = "admin_page.html";
+                        }
+                        else {
+                            console.log("Unknown user type");
+                            alert("Unknown user type");
+                        }
+                    } else {
+                        console.log("User data not found");
+                        alert("User data not found");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert(error.message);
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                alert(error.message);
+            });
+        };
+
+        former.addEventListener('submit', SignInUser);
         </script>
 
 </body>

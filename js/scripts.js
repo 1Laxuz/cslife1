@@ -1,20 +1,22 @@
+var toggle = document.querySelector(".toggle");
+var selectors = [
+  ".sideNav",
+  ".mainBoard",
+  ".cardGroup",
+  ".headerNav",
+  ".displayer",
+  ".form-container form"
+];
 
+var elements = selectors.map(selector => document.querySelector(selector));
 
-  var toggle = document.querySelector(".toggle");
-  var sidenav = document.querySelector(".sideNav");
-  var mainboard = document.querySelector(".mainBoard");
-  var cards = document.querySelector(".cardGroup");
-  var header = document.querySelector(".headerNav");
-  var displayer = document.querySelector(".displayer");
-  var form = document.querySelector(".form-container form");
-
-  toggle.onclick = function(e){
-  sidenav.classList.toggle("active");
-  header.classList.toggle("active");
-  mainboard.classList.toggle("active");
-  cards.classList.toggle("active");
-  displayer.classList.toggle("active");
-    form.classList.toggle("active");
-}
-
-
+toggle.addEventListener("click", function() {
+  console.log("Toggle button clicked"); // Check if the toggle button event is firing
+  elements.forEach(element => {
+    if (element) {
+      element.classList.toggle("active");
+    } else {
+      console.log("Element not found for selector");
+    }
+  });
+});

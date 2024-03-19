@@ -39,7 +39,7 @@ body {
   background: var(--violet);
   border-left: 10px solid var(--violet);
   transition: left 0.3s ease;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 .sideNav.active{
   left: 0px;
@@ -220,6 +220,7 @@ body {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 30px;
+  
 }
 .cardGroup.active{
   left: 300px;
@@ -349,19 +350,35 @@ body {
 .form-container form select option{
   background: #fff;
 }
+.form-container form .footer-btn{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
 .form-container form .form-btn{
-  background: #fcd0fe;
-  color:#813084;
   text-transform: capitalize;
   font-size: 20px;
   cursor: pointer;
+  color: #fff;
+  background-color: #813084;
+  padding: 5px 15px;
+  border: solid #ffffff 2px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 50px;
+  transition : 500ms;
+  transform: translateY(0);
 }
 
 .form-container form .form-btn:hover{
-  background: #813084;
-  color:#fff;
+  transition : 500ms;
+  padding: 5px 15px;
+  transform : translateY(-0px);
+  background-color: #ffffff;
+  color: #000000;
+  border: solid 2px #901a96;
 }
+
 
 .form-container form p,a{
   color:#333;

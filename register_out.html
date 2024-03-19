@@ -6,68 +6,66 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Register ouut Form</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/styles.css">
-
 </head>
 <body>
 
-   
         <div class="form-container" >
             <form id="former" class="form" action="" method="post">
             <h3>Registration Form</h3>
-            <input type="text" id="Fname" required placeholder="Enter a first name">
-            <input type="text" id="Lname" required placeholder="Enter a last name">
-            <input type="text" id="age" required placeholder="Enter an age"> 
-            <input type="email" id="email" required placeholder="Enter an email">
-           <input type="password" id="password" required placeholder="Enter a password">
-            <select name="program_type" id="program_type">
+            <input type="text" id="Fname" class="form-control mb-2" required placeholder="Enter a first name">
+            <input type="text" id="Lname"class="form-control mb-2" required placeholder="Enter a last name">
+            <input type="text" id="age" class="form-control mb-2" required placeholder="Enter an age"> 
+            <input type="email" id="email" class="form-control mb-2" required placeholder="Enter an email">
+            <input type="password" id="password" class="form-control mb-2" required placeholder="Enter a password">
+            <select name="program_type" class="form-control mb-2" id="program_type">
                 <option value="" disabled selected>Select Program</option>
                 <option value="CS">Computer Science</option>
                 <option value="IT">Information Technology</option>
                 <option value="IS">Information System</option>
             </select>
-            <select name="section" id="section" >
+            <select name="section" class="form-control mb-2"id="section" >
                 <option value="" disabled selected>Select Section</option>
                 <option value="1A">1 A</option>
                 <option value="1B">1 B</option>
                 <option value="1C">1 C</option>
                 <option value="1D">1 D</option>
             </select>
-            <select name="user_type" id="user_type">
+            <select name="user_type" class="form-control mb-2" id="user_type">
                 <option value="" disabled selected>Select user type</option>
                 <option value="user">User</option>
+                <option value="teacher">Teacher</option>
             </select>
-
-            <button type="submit"  class="form-btn">Create User</button>
-            <a href="index.html"><button type="button"  class="form-btn">Log in</button></a>
+            <input type="reset" width="10px" class="btn btn-danger mb-3" style="color: black;">
+            <div id="footer-btn"> 
+                <button type="submit"  class="form-btn">Create User</button>
+                <a href="index.html"><button type="button"  class="form-btn">Log in</button></a>
+            </div>
+            
             </form>
         </div>
 
-
-
 <script type="module">
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDKFZhYibbIxtFlpl68usbtUpk3Dobcvog",
-      authDomain: "cslife-9797d.firebaseapp.com",
-      databaseURL: "https://cslife-9797d-default-rtdb.firebaseio.com",
-      projectId: "cslife-9797d",
-      storageBucket: "cslife-9797d.appspot.com",
-      messagingSenderId: "734759036591",
-      appId: "1:734759036591:web:37b5060bcee292b826965a",
-      measurementId: "G-84WMFTCM25"
-    };  
-    
+        apiKey: "AIzaSyD_5NegiAoWx-xdiS18vGFf3ws0TIBSBcE",
+        authDomain: "cslife2-a7b38.firebaseapp.com",
+        databaseURL: "https://cslife2-a7b38-default-rtdb.firebaseio.com",
+        projectId: "cslife2-a7b38",
+        storageBucket: "cslife2-a7b38.appspot.com",
+        messagingSenderId: "145436502639",
+        appId: "1:145436502639:web:f5dcd44f6d9463779e7b9a"
+                            };
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-  
     const db = getDatabase();
     const auth = getAuth();
 
@@ -85,10 +83,9 @@
 
     let RegisterUser = evt => {
         evt.preventDefault();
-
         createUserWithEmailAndPassword(auth, email.value, password.value)
         .then((credentials) =>{
-                set(ref(db, 'users/'+ credentials.user.uid),{
+                set(ref(db, 'users/' + credentials.user.uid),{
                     firstname: fname.value,
                     lastname: lname.value,
                     age: age.value,
@@ -97,27 +94,18 @@
                     selectedProgram: programType.value,
                     section: section.value,
                     userType: userType.value
-                })
-                alert("Account Created");
-                
-                set(ref(db, 'tablesScore/' + credentials.user.uid + 'scores'),{
-                   scores1: 3,
-                   scores2: 0,
-                   scores3: 0,
-                   scores4: 0,
-                   scores5: 0,
-                   scores6: 0
-                })
-                
-        })
-        .catch((error)=>{
-            console.log(error);
-            alert(error.message);
+                })  
+            })
+            .catch((error)=>{
+                console.log(error);
+                alert(error.message);
         })
         
+        alert("Account Created");
+        window.location.href = "index.html"
     }
     former.addEventListener('submit', RegisterUser);
-  </script>
+</script>
 
 </body>
 </html>
