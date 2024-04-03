@@ -1,16 +1,16 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js';
-import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js';
-import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyD_5NegiAoWx-xdiS18vGFf3ws0TIBSBcE",
-        authDomain: "cslife2-a7b38.firebaseapp.com",
-        databaseURL: "https://cslife2-a7b38-default-rtdb.firebaseio.com",
-        projectId: "cslife2-a7b38",
-        storageBucket: "cslife2-a7b38.appspot.com",
-        messagingSenderId: "145436502639",
-        appId: "1:145436502639:web:f5dcd44f6d9463779e7b9a"
+    apiKey: "AIzaSyBHCCx9eMGUAppRuG4CFGiOVo1j8UbBcnY",
+    authDomain: "cslife1.firebaseapp.com",
+    databaseURL: "https://cslife1-default-rtdb.firebaseio.com",
+    projectId: "cslife1",
+    storageBucket: "cslife1.appspot.com",
+    messagingSenderId: "509770234718",
+    appId: "1:509770234718:web:09ec96e5c36999d296adcf"
           };
              //measurementId: "G-84WMFTCM25"
     const firebaseApp = initializeApp(firebaseConfig);

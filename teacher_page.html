@@ -9,6 +9,16 @@
     <!--google icons Integration-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
+    
+
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
+    
 </head>
 
 <body>
@@ -25,24 +35,6 @@
                         <span class="material-icons-round">space_dashboard</span>
                         </span>
                         <span class="title">Dashboard</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="display.html">
-                        <span class="icon">
-                        <span class="material-icons-round">people</span>
-                        </span>
-                        <span class="title">View Students</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="register.html">
-                    <span class="icon">
-                         <span class="material-icons-round">group_add</span> 
-                         </span> 
-                        <span class="title">Add Students</span>
                     </a>
                 </li>
 
@@ -74,7 +66,6 @@
                 <div class="headings">
                     <h1>CS : LIFE</h1>
                 </div>
-             
                 <div class="user">
                     
                     <img src="img/teacher.png" alt="Profile Picture"/>
@@ -82,50 +73,62 @@
             </div>
     </div>
             <!-- ======================= Cards ================== -->
-    <div class="cardGroup">
-                <div class="cardStatus">
+    <div class="cardGroup ">
+                <div class="cardStatus ">
                     <div>
-                        <div class="cardName">Total Students in Database</div>
-                        <div class="cardNumber" id="totalUsersCount"></div>
+                        <div class="cardName">Your class is:</div>
+                        <div class="cardNumber" id="class"></div>
                     </div>
                 </div>
-                <div class="cardStatus">
+                <div class="cardStatus ">
                     <div>
-                        <div class="cardName">Total CS Students</div>
-                        <div class="cardNumber" id="countCS"></div>
+                        <div class="cardName">Students Count:</div>
+                        <div class="cardNumber" id="studentCount"></div>
                     </div>
                 </div>
-                <div class="cardStatus">
-                    <div>
-                        <div class="cardName">Total IT Students</div>
-                        <div class="cardNumber" id="countIT"></div>
-                    </div>
-                </div>
-                <div class="cardStatus">
-                    <div>
-                        <div class="cardName">Total IS Students</div>
-                        <div class="cardNumber" id="countIS"></div>
-                    </div>
-                </div>
-                <div class="cardStatus">
-                    <div>
-                        <div class="cardName">Total Admin in Database</div>
-                        <div class="cardNumber" id="totalAdminCount"></div>
-                    </div>
-                </div>
-               
     </div>
+
+    
                 <!-- ================= MAINNN ================ -->
-        <div class="mainBoard">
-                <div class="cardMain">
-                    <div>
-                        <div class="cardName">Visualization</div>
-                        <canvas id="scoreChart" width="400" height="300"></canvas>
-                    </div>
-                </div>
-                
+    <div class="mainBoard">
+        <div class="cardMain">
+            <div class="container" style="width:100%">
+                <table id="example" class="table table-striped" >
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Section</th>
+                            <th>Selected Program</th>
+                            <th>User Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Section</th>
+                            <th>Selected Program</th>
+                            <th>User Type</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div class="cardMain">
+
+        </div>
+    </div>
+
+        
         <script type="module" src="js/teacher.js"></script>
 </body>
 

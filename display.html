@@ -102,29 +102,24 @@
     </div>
 
     <script type="module">
-      
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        import { getDatabase, set, ref, child, get, update, remove, onValue,} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
-        import { getAuth, onAuthStateChanged,signOut } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, set, ref, child, get, update, remove, onValue,} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged,signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
         
         const firebaseConfig = {
-            apiKey: "AIzaSyD_5NegiAoWx-xdiS18vGFf3ws0TIBSBcE",
-        authDomain: "cslife2-a7b38.firebaseapp.com",
-        databaseURL: "https://cslife2-a7b38-default-rtdb.firebaseio.com",
-        projectId: "cslife2-a7b38",
-        storageBucket: "cslife2-a7b38.appspot.com",
-        messagingSenderId: "145436502639",
-        appId: "1:145436502639:web:f5dcd44f6d9463779e7b9a"
-          };
-             //measurementId: "G-84WMFTCM25"
-      
+            apiKey: "AIzaSyBHCCx9eMGUAppRuG4CFGiOVo1j8UbBcnY",
+            authDomain: "cslife1.firebaseapp.com",
+            databaseURL: "https://cslife1-default-rtdb.firebaseio.com",
+            projectId: "cslife1",
+            storageBucket: "cslife1.appspot.com",
+            messagingSenderId: "509770234718",
+            appId: "1:509770234718:web:09ec96e5c36999d296adcf"
+        };
         
         const app = initializeApp(firebaseConfig);
         const db = getDatabase();
         const dbref = ref(db);
         const auth = getAuth();
-
-
 
         var idnumber = 0;
         var tbody = document.getElementById('tbody')
@@ -161,13 +156,14 @@
             tbody.appendChild(trow);
         }
         
-        async function AddAllItemsToTable(TheStudent){
+        async function AddAllItemsToTable(students){
             idnumber = 0;
             tbody.innerHTML="";
-            TheStudent.forEach(element => {
+            students.forEach(element => {
                 AddItemToTable(element.firstname, element.lastname, element.age, element.email, element.selectedProgram, element.section, element.userType )
             });
         }
+
         function GetAllDataOnce(){
             const dbRef = ref(db);
             get(child(dbRef, 'users/'))
@@ -184,65 +180,21 @@
         }
         
 
-        function GetAllDataRealtime(){
+        // function GetAllDataRealtime(){
             
-            const dbRef = ref(db, 'users/');
-                onValue (dbRef, (snapshot)=>{
-                     var students =[];
-            snapshot.forEach(childSnapshot => {
-            students.push(childSnapshot.val());
-            });
-            AddAllItemsToTable(students);
-            });
-        }
-           
+        //     const dbRef = ref(db, 'users/');
+        //         onValue (dbRef, (snapshot)=>{
+        //             var students =[];
+        //     snapshot.forEach(childSnapshot => {
+        //     students.push(childSnapshot.val());
+        //     });
+        //     AddAllItemsToTable(students);
+        //     });
+        // }
         window.onload = GetAllDataOnce; 
-        
-        
-        onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const uid = user.uid;
-            console.log("Current user UID:", uid);
-            fetchData(uid); // Call your function with the UID
-            } else {
-            // User is not signed in
-            console.log("No user signed in");
-            // You might want to handle this case, for example, redirect to a login page
-            }
-        })
-        async function fetchData(uid) {
-    try {
-      const snapshot = await get(ref(dbref, `/users/${uid}`));
-      const userType = snapshot.val().userType;
-      console.log(userType);
-      if (userType === "user") {
-                        window.location.href = "user_page.html";
-    } else if (userType === "admin") {
-                        window.location.href = "admin_page.html";
-    }else{
-        window.location.href = "index.html"
-    }
-    }
-        catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-   
 
-    document.getElementById('logoutButton').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default behavior of the anchor link
-    signOut(auth)
-        .then(() => {
-            // Sign-out successful.
-            window.location.href = "index.html";
-        })
-        .catch((error) => {
-            // An error happened.
-            console.error('Sign-out error:', error);
-        });
-});
-      </script>
-      <!-- =========== Scripts =========  -->
-      <script src="js/teacher.js"></script>
+    </script>
+    <!-- =========== Scripts =========  -->
+    <script src="js/scripts.js"></script>
 </body>
 </html>

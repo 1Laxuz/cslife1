@@ -1,16 +1,16 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js';
-import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js';
-import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyD_5NegiAoWx-xdiS18vGFf3ws0TIBSBcE",
-    authDomain: "cslife2-a7b38.firebaseapp.com",
-    databaseURL: "https://cslife2-a7b38-default-rtdb.firebaseio.com",
-    projectId: "cslife2-a7b38",
-    storageBucket: "cslife2-a7b38.appspot.com",
-    messagingSenderId: "145436502639",
-    appId: "1:145436502639:web:f5dcd44f6d9463779e7b9a"
+    apiKey: "AIzaSyBHCCx9eMGUAppRuG4CFGiOVo1j8UbBcnY",
+  authDomain: "cslife1.firebaseapp.com",
+  databaseURL: "https://cslife1-default-rtdb.firebaseio.com",
+  projectId: "cslife1",
+  storageBucket: "cslife1.appspot.com",
+  messagingSenderId: "509770234718",
+  appId: "1:509770234718:web:09ec96e5c36999d296adcf"
 };
     const firebaseApp = initializeApp(firebaseConfig);
     const database = getDatabase();
@@ -21,11 +21,10 @@ onAuthStateChanged(auth, async function(user) {
             // User is signed in.
             var uid = user.uid;
             console.log("User UID:", uid);
-            checkUserRole(user.uid);
-            // Call getScores function after user is authenticated
+            
             
             await getTotalUsersCount();
-            await displayCharts();
+            await displayCharts(uid);
         } else {
             // No user is signed in.
             console.log("No user signed in.");
@@ -33,26 +32,7 @@ onAuthStateChanged(auth, async function(user) {
         }
 });
 
-// Function to check user role
-function checkUserRole(uid) {
-    // Retrieve user role from Firebase Realtime Database
-    firebase.database().ref('users/' + uid + '/userType').once('value')
-      .then(function(snapshot) {
-        var role = snapshot.val();
-        // Check if user has admin role
-        if (role === 'admin') {
-          // Allow access to admin page
-          console.log("User is admin");
-        } else {
-          // Redirect to unauthorized page
-          console.log("User is not authorized to access this page");
-          window.location.href = "index.html";
-        }
-      })
-      .catch(function(error) {
-        console.error("Error getting user role:", error);
-      });
-  }
+
 
 window.addEventListener('dataFetched', () => {
     const canvas = document.getElementById('scoreChart');
@@ -191,16 +171,16 @@ var elements = selectors.map(selector => document.querySelector(selector));
 
 toggle.addEventListener("click", function() {
   console.log("Toggle button clicked"); // Check if the toggle button event is firing
-  elements.forEach(element => {
+elements.forEach(element => {
     if (element) {
-      element.classList.toggle("active");
+    element.classList.toggle("active");
     } else {
-      console.log("Element not found for selector");
+    console.log("Element not found for selector");
     }
-  });
+});
 });
 
-// Add the combined event listener
+
 //onAuthStateChanged(auth, handleAuthStateChange);
 document.getElementById('logoutButton').addEventListener('click', function (event) {
     event.preventDefault();
