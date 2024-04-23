@@ -25,6 +25,7 @@ onAuthStateChanged(auth, async function(user) {
             
             await getTotalUsersCount();
             await displayCharts(uid);
+            await GetAllDataOnce();
         } else {
             // No user is signed in.
             console.log("No user signed in.");
@@ -176,7 +177,7 @@ async function displayCharts() {
 
     Object.values(userData).forEach(user => {
         // Check if the user has a selectedProgram property
-        if (user && user.userType === 'user' && user.selectedProgram) {
+        if (user && user.userType === 'student' && user.selectedProgram) {
             // Increment the count for the selected program
             programCounts[user.selectedProgram] = (programCounts[user.selectedProgram] || 0) + 1;
         }
@@ -216,6 +217,75 @@ const displayBarChart = (data) => {
             }
         }
     });
+};
+
+
+var idnumber = 0;
+var table;
+
+// Function to retrieve data from Firebase database
+async function GetAllDataOnce() {
+    const usersRef = ref(database, "users/");
+
+    // Get the data once
+    get(usersRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // Access the data from the snapshot directly
+                const userData = snapshot.val();
+                var students = [];
+
+                snapshot.forEach(childSnapshot => {
+                    students.push(childSnapshot.val());
+                });
+
+                console.log(students);
+                AddAllItemsToTable(students);
+            } else {
+                console.log("No data available");
+            }
+        })
+        .catch((error) => {
+            console.error("Error getting data:", error);
+        });
+}
+
+// Function to add all items to the DataTable
+function AddAllItemsToTable(students) {
+    idnumber = 0;
+    if ($.fn.DataTable.isDataTable('#example1')) {
+        // DataTable is already initialized, clear existing data
+        table.clear().draw();
+    } else {
+        // Initialize DataTable
+        table = $('#example1').DataTable();
+    }
+
+    students.forEach(element => {
+        AddItemToTable(
+        element.firstname,
+        element.lastname, 
+        element.contactNumber,
+        element.studentNumber,
+        element.age,  
+        element.email,  
+        element.selectedProgram,
+        element.section, 
+        element.userType,
+        element.year)
+    });
+}
+
+// Function to add an item to the DataTable
+function AddItemToTable(firstname, lastname,contactNumber, studentNumber, age, email, selectedProgram, section, userType, year) {
+    let data = [++idnumber, firstname, lastname,contactNumber, studentNumber, age, email, selectedProgram, section, userType, year];
+    table.row.add(data).draw(); // Add data to the DataTable
+}
+
+// When the window is loaded, fetch data and populate DataTable
+window.onload = function () {
+    // Fetch data and populate DataTable
+    GetAllDataOnce();
 };
 
 

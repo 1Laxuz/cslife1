@@ -36,14 +36,6 @@
                 </a>
             </li>
 
-            <li>
-                <a href="display.html">
-                    <span class="icon">
-                        <span class="material-icons-round">people</span>
-                    </span>
-                    <span class="title">View Students</span>
-                </a>
-            </li>
 
             <li>
                 <a href="register.html">
@@ -92,38 +84,48 @@
     <div class="cardGroup">
         <div class="cardStatus">
             <div>
-                <div class="cardName">Total Users in Database</div>
+                <div class="cardName">Total Users in Database:</div>
                 <div class="cardNumber" id="totalUsersCount"></div>
             </div>
         </div>
         <div class="cardStatus">
             <div>
-                <div class="cardName">Total CS Students</div>
+                <div class="cardName">Total CS Students:</div>
                 <div class="cardNumber" id="countCS"></div>
             </div>
         </div>
         <div class="cardStatus">
             <div>
-                <div class="cardName">Total IT Students</div>
+                <div class="cardName">Total IT Students:</div>
                 <div class="cardNumber" id="countIT"></div>
             </div>
         </div>
         <div class="cardStatus">
             <div>
-                <div class="cardName">Total IS Students</div>
+                <div class="cardName">Total IS Students:</div>
                 <div class="cardNumber" id="countIS"></div>
             </div>
         </div>
         <div class="cardStatus">
             <div>
-                <div class="cardName">Total Admin in Database</div>
+                <div class="cardName">Total Admin in Database:</div>
                 <div class="cardNumber" id="totalAdminCount"></div>
             </div>
         </div>
         <div class="cardStatus">
             <div>
-                <div class="cardName">Total Teacher in Database</div>
+                <div class="cardName">Total Teacher in Database:</div>
                 <div class="cardNumber" id="totalTeacherCount"></div>
+            </div>
+        </div>
+        <div class="cardStatus">
+            <div>
+                <div class="cardMain">
+                    <div>
+                        <div class="cardName text-center">Visualization</div>
+                        <canvas id="adminChart" width="300px"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="cardStatus">
@@ -170,14 +172,11 @@
     </div>
     <!-- ================= MAINNN ================ -->
     <div class="mainBoard">
+        
         <div class="cardMain">
-            <div>
-                <div class="cardName">Visualization</div>
-                <canvas id="adminChart" width="400" height="300"></canvas>
-            </div>
-        </div>
-        <div class="cardMain">
+           
             <div class="container" style="width: 100%">
+                <div class="cardName text-center">Filter Students</div>
                 <table id="example" class="table table-striped">
                     <thead>
                         <tr>
@@ -200,6 +199,32 @@
                             <th>Academic Year</th>
                         </tr>
                     </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="cardMain">
+           
+            <div class="displayer container" >
+                <div class="cardName text-center"> Search All Users</div>
+                <table id="example1" class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Student Number</th>
+                            <th>Contact Number</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Selected Program</th>
+                            <th>Section</th>
+                            <th>User Type</th>
+                            <th>Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table body will be populated dynamically -->
+                    </tbody>
                 </table>
             </div>
         </div>

@@ -156,7 +156,6 @@ document.getElementById('logoutButton').addEventListener('click', function (even
         })
         .catch((error) => {
             console.error('Sign-out error:', error);
-            
         });
-});
+  });
 // Path: js/user.js

@@ -94,14 +94,14 @@
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Age</th>
                     <th>Student Number</th>
                     <th>Contact Number</th>
+                    <th>Age</th>
                     <th>Email</th>
-                    <th>Year</th>
-                    <th>Program Type</th>
+                    <th>Selected Program</th>
                     <th>Section</th>
                     <th>User Type</th>
+                    <th>Year</th>
                 </tr>
             </thead>
             <tbody>
@@ -171,13 +171,23 @@ function AddAllItemsToTable(students) {
     }
 
     students.forEach(element => {
-        AddItemToTable(element.firstname, element.lastname, element.age,element.studentNumber, element.contactNumber,  element.email, element.year, element.selectedProgram, element.section, element.userType)
+        AddItemToTable(
+        element.firstname,
+        element.lastname, 
+        element.contactNumber,
+        element.studentNumber,
+        element.age,  
+        element.email,  
+        element.selectedProgram,
+        element.section, 
+        element.userType,
+        element.year)
     });
 }
 
 // Function to add an item to the DataTable
-function AddItemToTable(Fname, Lname, age, email, program_type, section, user_type) {
-    let data = [++idnumber, Fname, Lname, age, email, program_type, section, user_type];
+function AddItemToTable(firstname, lastname,contactNumber, studentNumber, age, email, selectedProgram, section, userType, year) {
+    let data = [++idnumber, firstname, lastname,contactNumber, studentNumber, age, email, selectedProgram, section, userType, year];
     table.row.add(data).draw(); // Add data to the DataTable
 }
 
