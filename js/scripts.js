@@ -20,3 +20,17 @@ toggle.addEventListener("click", function() {
     }
   });
 });
+
+document
+  .getElementById("logoutButton")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    signOut(auth)
+      .then(() => {
+        window.location.href = "index.html";
+        alert("Signed out Successfully");
+      })
+      .catch((error) => {
+        console.error("Sign-out error:", error);
+      });
+  });

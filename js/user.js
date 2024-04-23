@@ -11,7 +11,7 @@ const firebaseConfig = {
     storageBucket: "cslife1.appspot.com",
     messagingSenderId: "509770234718",
     appId: "1:509770234718:web:09ec96e5c36999d296adcf"
-          };
+};
              //measurementId: "G-84WMFTCM25"
     const firebaseApp = initializeApp(firebaseConfig);
     const database = getDatabase();
@@ -31,7 +31,6 @@ onAuthStateChanged(auth, async function(user) {
             window.location.href = "index.html"
         }
 });
-
 
 window.addEventListener('dataFetched', () => {
     const canvas = document.getElementById('scoreChart');
@@ -60,21 +59,30 @@ window.addEventListener('dataFetched', () => {
     });
 });
 
+function getColor(score) {
+    if (score >= 8) {
+        return 'green'; // Green for scores >= 90
+    } else if (score >= 5) {
+        return 'blue'; // Orange for scores >= 70
+    } else {
+        return 'red'; // Red for scores < 70
+    }
+}
 
 async function getScores(uid) {
     try {
         const scoreSnapshot = await get(ref(database, 'tablesScore/' + uid));
         const scoreData = scoreSnapshot.val();
-        console.log(scoreData);
+        console.log(uid);
 
         if (scoreData) {
             // Display scores in their respective containers
-            document.getElementById('scores1').innerHTML = `<p>${scoreData.scores1}</p>`;
-            document.getElementById('scores2').innerHTML = `<p>${scoreData.scores2}</p>`;
-            document.getElementById('scores3').innerHTML = `<p>${scoreData.scores3}</p>`;
-            document.getElementById('scores4').innerHTML = `<p>${scoreData.scores4}</p>`;
-            document.getElementById('scores5').innerHTML = `<p>${scoreData.scores5}</p>`;
-            document.getElementById('scores6').innerHTML = `<p>${scoreData.scores6}</p>`;
+            document.getElementById('scores1').innerHTML = `<p style="color: ${getColor(scoreData.scores1)}">${scoreData.scores1}</p>`;
+document.getElementById('scores2').innerHTML = `<p style="color: ${getColor(scoreData.scores2)}">${scoreData.scores2}</p>`;
+document.getElementById('scores3').innerHTML = `<p style="color: ${getColor(scoreData.scores3)}">${scoreData.scores3}</p>`;
+document.getElementById('scores4').innerHTML = `<p style="color: ${getColor(scoreData.scores4)}">${scoreData.scores4}</p>`;
+document.getElementById('scores5').innerHTML = `<p style="color: ${getColor(scoreData.scores5)}">${scoreData.scores5}</p>`;
+document.getElementById('scores6').innerHTML = `<p style="color: ${getColor(scoreData.scores6)}">${scoreData.scores6}</p>`;
         }
 
         document.getElementById('customParagraph1').innerHTML = generateCustomParagraph(scoreData.scores1, "Topic 1 Foundation of Programming");
@@ -84,16 +92,16 @@ async function getScores(uid) {
         document.getElementById('customParagraph5').innerHTML = generateCustomParagraph(scoreData.scores5, "Topic 5 Structured Programming");
         document.getElementById('customParagraph6').innerHTML = generateCustomParagraph(scoreData.scores6, "Topic 6 Data Structures and Algorithms");
 
+        
         const totalScore = (scoreData.scores1 + scoreData.scores2 + scoreData.scores3 + scoreData.scores4 + scoreData.scores5 + scoreData.scores6) / 6;
-            
+
         document.getElementById('totalScore').innerHTML = `<p> Your Total Score Average is: ${totalScore.toFixed(2)}</p>`;
             // Display custom paragraph based on score
-            if (totalScore >= 8) {
-                document.getElementById('customParagraph').innerHTML = "<p>Knowledge Category: You're doing great!</p>";
-            } else if (totalScore >= 4) {
-                document.getElementById('customParagraph').innerHTML = "<p>Knowledge Category: You're doing okay.</p>";
-            } else {
-                document.getElementById('customParagraph').innerHTML = "<p>Knowledge Category: You need improvement.</p>";
+            if (totalScore >= 7) {
+                document.getElementById('customParagraph').innerHTML = "<p>Result: Congratulations! you passed.</p>";
+            }
+            else {
+                document.getElementById('customParagraph').innerHTML = "<p>Result:  Sorry, but you failed.</p>";
             }
 
 
@@ -109,14 +117,11 @@ function generateCustomParagraph(score, topic) {
     if (score >= 8) {
         return `<p>In ${topic}: Excellent, You may explore more to gain more knowledge.</p>`;
     } else if (score >= 4) {
-        return `<p>In ${topic}: You can try again or advance study about this topic.</p>`;
+        return `<p>In ${topic}: Advance study about this topic.</p>`;
     } else {
         return `<p>In ${topic}: You might need to try to study more about this topic.</p>`;
     }
 }
-
-
-
 
 
 var toggle = document.querySelector(".toggle");

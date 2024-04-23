@@ -21,14 +21,17 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
- 
-/*.container {
-  position: relative;
-  width: 100%;
-}*/
+
+.container {
+  padding: 0 0 0 0;
+}
 /* =============== END Globals ============== */
 
-
+/* .disabled {
+  background-color: #f0f0f0; 
+  color: #999; 
+  cursor: not-allowed; 
+} */
 
 /* =============== SIDENAV ================ */
 .sideNav {
@@ -40,6 +43,7 @@ body {
   border-left: 10px solid var(--violet);
   transition: left 0.3s ease;
   overflow-y: hidden;
+  
 }
 .sideNav.active{
   left: 0px;
@@ -422,6 +426,8 @@ body {
   justify-content: center;
   min-height: 490px;
   width: 100%;
+
+  
 
 }
 /* ====================== Responsive WEB ========================== */

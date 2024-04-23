@@ -1,135 +1,189 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CS:LIFE PORTAL</title>
     <!--google icons Integration-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
-    
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css"
+    />
 
-    
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
-    
-</head>
+  </head>
 
-<body>
-        <!-- =============== side_menu ================ -->
+  <body>
+    <!-- =============== side_menu ================ -->
     <div class="sideNav">
-        <div class="sideNav-branding">
-            <img src="img/logo.png" alt="logo">
-            <h1>TEACHER PANEL</h1>
-        </div>
-            <ul>
-                <li>
-                    <a href="teacher_page.html">
-                        <span class="icon">
-                        <span class="material-icons-round">space_dashboard</span>
-                        </span>
-                        <span class="title">Dashboard</span>
-                    </a>
-                </li>
+      <div class="sideNav-branding">
+        <img src="img/logo.png" alt="logo" />
+        <h1>TEACHER PANEL</h1>
+      </div>
+      <ul>
+        <li>
+          <a href="teacher_page.html">
+            <span class="icon">
+              <span class="material-icons-round">space_dashboard</span>
+            </span>
+            <span class="title">Dashboard</span>
+          </a>
+        </li>
 
-                <li>
-                    <a href="about_teacher.html">
-                    <span class="icon">
-                        <span class="material-icons-round">help</span>
-                        </span> 
-                        <span class="title">About</span>
-                    </a>
-                </li>
+        <li>
+          <a href="about_teacher.html">
+            <span class="icon">
+              <span class="material-icons-round">help</span>
+            </span>
+            <span class="title">About</span>
+          </a>
+        </li>
 
-                <li>
-                    <a href=""id="logoutButton">
-                    <span class="icon">
-                    <span class="material-icons-round" >logout</span>
-                    </span> 
-                        <span class="title">Log Out</span>
-                    </a>
-                </li>
-            </ul>
+        <li>
+          <a href="" id="logoutButton">
+            <span class="icon">
+              <span class="material-icons-round">logout</span>
+            </span>
+            <span class="title">Log Out</span>
+          </a>
+        </li>
+      </ul>
     </div>
-        <!-- =============== TOP NAV ================ -->
+    <!-- =============== TOP NAV ================ -->
     <div class="headerNav">
-            <div class="headerNavtopbar">
-            <div class="toggle">
-                <span class="material-icons-round">menu</span>
-            </div>
-                <div class="headings">
-                    <h1>CS : LIFE</h1>
-                </div>
-                <div class="user">
-                    
-                    <img src="img/teacher.png" alt="Profile Picture"/>
-                </div>
-            </div>
+      <div class="headerNavtopbar">
+        <div class="toggle">
+          <span class="material-icons-round">menu</span>
+        </div>
+        <div class="headings">
+          <h1>CS : LIFE</h1>
+        </div>
+        <div class="user">
+          <img src="img/teacher.png" alt="Profile Picture" />
+        </div>
+      </div>
     </div>
-            <!-- ======================= Cards ================== -->
-    <div class="cardGroup ">
-                <div class="cardStatus ">
-                    <div>
-                        <div class="cardName">Your class is:</div>
-                        <div class="cardNumber" id="class"></div>
-                    </div>
-                </div>
-                <div class="cardStatus ">
-                    <div>
-                        <div class="cardName">Students Count:</div>
-                        <div class="cardNumber" id="studentCount"></div>
-                    </div>
-                </div>
+    <!-- ======================= Cards ================== -->
+    <div class="cardGroup">
+      <div class="cardStatus row d-flex flex-column">
+        <div class="cardName">Your class is:</div>
+        <div class="cardNumber" id="class"></div>
+      </div>
+      <div class="cardStatus row d-flex flex-column">
+        <div class="cardName">Students Count:</div>
+        <div class="cardNumber" id="studentCount"></div>
+      </div>
+      <div class="cardStatus">
+        <form id="myForm" action="">
+          <label class="cardName">Class Filter</label>
+          <select
+            name="program_type"
+            class="dropdown form-control-sm mb-2 dropdown"
+            id="program_type"
+          >
+            <option value="" disabled selected>Select Program</option>
+            <option value="CS">Bachelor of Science in Computer Science</option>
+            <option value="IT">
+              Bachelor of Science in Information Technology
+            </option>
+            <option value="IS">
+              Bachelor of Science in Information System
+            </option>
+          </select>
+          <select
+            name="section"
+            class="dropdown form-control-sm mb-2"
+            id="section"
+          >
+            <option value="" disabled selected>Select Section</option>
+            <option value="1A">1 A</option>
+            <option value="1B">1 B</option>
+            <option value="1C">1 C</option>
+            <option value="1D">1 D</option>
+            <option value="1E">1 E</option>
+            <option value="1E">1 F</option>
+          </select>
+          <select name="year" class="dropdown form-control-sm mb-2" id="year">
+            <option value="" disabled selected>Select Academic Year</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+          </select>
+          <button type="reset" class="btn btn-danger btn-sm">
+            Clear Fields
+          </button>
+          <button
+            type="button"
+            id="filterButton"
+            class="btn btn-success btn-sm"
+          >
+            Filter
+          </button>
+        </form>
+      </div>
     </div>
 
-    
-                <!-- ================= MAINNN ================ -->
+    <!-- ================= MAINNN ================ -->
     <div class="mainBoard">
-        <div class="cardMain">
-            <div class="container" style="width:100%">
-                <table id="example" class="table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                            <th>Email</th>
-                            <th>Section</th>
-                            <th>Selected Program</th>
-                            <th>User Type</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                        
-                        
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                            <th>Email</th>
-                            <th>Section</th>
-                            <th>Selected Program</th>
-                            <th>User Type</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+      <div class="cardMain">
+        <div class="container" style="width: 100%">
+          <table id="example" class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Student Number</th>
+                <th>Contact Number</th>
+                <th>Academic Year</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
         </div>
+      </div>
         <div class="cardMain">
-
+          <div class="container" style="width: 100%;">
+            <table id="example1" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Topic 1</th>
+                  <th>Topic 2</th>
+                  <th>Topic 3</th>
+                  <th>Topic 4</th>
+                  <th>Topic 5</th>
+                  <th>Topic 6</th>
+                  <th>Average</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
         </div>
-    </div>
 
-        
-        <script type="module" src="js/teacher.js"></script>
-</body>
 
+    <!-- <script type="module" src="js/sample.js"></script> -->
+    <script type="module" src="js/teacher.js"></script>
+  </body>
 </html>

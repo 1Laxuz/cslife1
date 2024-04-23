@@ -87,24 +87,10 @@
             <h3>Registration Form</h3>
             <input type="text" id="Fname" required placeholder="Enter a first name">
             <input type="text" id="Lname" required placeholder="Enter a last name">
-            <input type="text" id="age" required placeholder="Enter an age"> 
             <input type="email" id="email" required placeholder="Enter an email">
-           <input type="password" id="password" required placeholder="Enter a password">
-            <select name="program_type" id="program_type">
-                <option value="" disabled selected>Select Program</option>
-                <option value="CS">Computer Science</option>
-                <option value="IT">Information Technology</option>
-                <option value="IS">Information System</option>
-            </select>
-            <select name="section" id="section" >
-                <option value="" disabled selected>Select Section</option>
-                <option value="1A">1 A</option>
-                <option value="1B">1 B</option>
-                <option value="1C">1 C</option>
-                <option value="1D">1 D</option>
-            </select>
+            <input type="password" id="password" required placeholder="Enter a password">
             <select name="user_type" id="user_type">
-                <option value="" disabled selected>Select user type</option>
+                <option value="" disabled selected>Select User Type</option>
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
             </select>
@@ -143,11 +129,8 @@
 
     let fname = document.getElementById('Fname');
     let lname = document.getElementById('Lname');
-    let age = document.getElementById('age');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
-    let programType = document.getElementById('program_type');
-    let section = document.getElementById('section');
     let userType = document.getElementById('user_type');
 
     let former = document.getElementById('former'); 
@@ -160,24 +143,12 @@
                 set(ref(db, 'users/'+ credentials.user.uid),{
                     firstname: fname.value,
                     lastname: lname.value,
-                    age: age.value,
                     email: email.value,
                     password: password.value,
-                    selectedProgram: programType.value,
-                    section: section.value,
                     userType: userType.value
                 })
                 alert("Account Created");
                 
-                set(ref(db, 'tablesScore/' + credentials.user.uid ),{
-                   scores1: 3,
-                   scores2: 5,
-                   scores3: 9,
-                   scores4: 8,
-                   scores5: 1,
-                   scores6: 6
-                })
-                console.log("dito222")
         })
         .catch((error)=>{
             console.log(error);

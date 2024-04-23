@@ -69,10 +69,9 @@ async function getTotalUsersCount() {
     const usersData = usersSnapshot.val();
     
     if (usersData) {
-        
-        // Filter users with userType "user"
+
         const userCount = Object.values(usersData)
-            .filter(user => user.userType === 'user')
+            .filter(user => user.userType === 'student')
             .length;
         const userCountss = Object.values(usersData)
             .filter(user => user.userType === 'admin')
@@ -89,9 +88,9 @@ async function getTotalUsersCount() {
         document.getElementById('totalTeacherCount').innerText = userCountsss.toString();
 
         const userCounts = {
-            IT: Object.values(usersData).filter(user => user.selectedProgram === 'IT' && user.userType === 'user').length,
-            CS: Object.values(usersData).filter(user => user.selectedProgram === 'CS' && user.userType === 'user').length,
-            IS: Object.values(usersData).filter(user => user.selectedProgram === 'IS' && user.userType === 'user').length,
+            IT: Object.values(usersData).filter(user => user.selectedProgram === 'IT' && user.userType === 'student').length,
+            CS: Object.values(usersData).filter(user => user.selectedProgram === 'CS' && user.userType === 'student').length,
+            IS: Object.values(usersData).filter(user => user.selectedProgram === 'IS' && user.userType === 'student').length,
           };
             document.getElementById('countIT').innerText = userCounts.IT.toString();
             document.getElementById('countCS').innerText = userCounts.CS.toString();
@@ -102,7 +101,71 @@ async function getTotalUsersCount() {
         console.log('No user data found');
     }
 }
-// Call the function
+
+function handleButtonClick(event) {
+    // Get selected values when the button is clicked
+    const dropdowns = Array.from(document.querySelectorAll(".dropdown"));
+    const selectedValues = [];
+  
+      dropdowns.forEach((dropdown) => {
+          selectedValues.push(dropdown.value);
+      });
+  
+      console.log(selectedValues);
+  
+    // Get a reference to the "users" node
+    const usersRef = ref(database, "users/");
+  
+    // Get the data once
+    get(usersRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                // Access the data from the snapshot directly
+                const userData = snapshot.val();
+  
+                // Filter users based on selected values
+                let matchingUsers = Object.values(userData).filter((user) => {
+                    return (
+                        selectedValues.includes(user.selectedProgram) &&
+                        selectedValues.includes(user.section) &&
+                        selectedValues.includes(user.year) &&
+                        user.userType === "student"
+                    );
+                });
+  
+                console.log(matchingUsers);
+                // Clear DataTable before adding new data
+                $("#example").DataTable().clear().draw();
+  
+                // Add matching users to the DataTable
+                matchingUsers.forEach((user) => {
+                    $("#example").DataTable().row.add([
+                        user.firstname,
+                        user.lastname,
+                        user.email,
+                        user.studentNumber,
+                        user.contactNumber,
+                        user.year,
+                    ]);
+                });
+  
+                // Redraw DataTable
+                $("#example").DataTable().draw();
+  
+                // Log the retrieved data
+                console.log(userData);
+            } else {
+                console.log("No data available");
+            }
+        })
+        .catch((error) => {
+            console.error("Error getting data:", error);
+        });
+  }
+  
+  const filterButton = document.getElementById("filterButton");
+  filterButton.addEventListener("click", handleButtonClick);
+  
 
 
 async function displayCharts() {
