@@ -8,15 +8,16 @@
     <title>CS:LIFE PORTAL</title>
     <!--google icons Integration-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css" />
-  
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+        integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
     <link rel="stylesheet" href="css/styles.css" />
-
 </head>
 
 <body>
@@ -35,7 +36,6 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
-
 
             <li>
                 <a href="register.html">
@@ -76,6 +76,8 @@
             </div>
 
             <div class="user">
+                <div id="userinfo" style="width: 250px"></div>
+
                 <img src="img/software-engineer.png" alt="" />
             </div>
         </div>
@@ -134,11 +136,9 @@
                 <select name="program_type" class="dropdown form-control-sm mb-2 dropdown" id="program_type">
                     <option value="" disabled selected>Select Program</option>
                     <option value="CS">Bachelor of Science in Computer Science</option>
-                    <option value="IT">
-                        Bachelor of Science in Information Technology
+                    <option value="IT">Bachelor of Science in Information Technology
                     </option>
-                    <option value="IS">
-                        Bachelor of Science in Information System
+                    <option value="IS">Bachelor of Science in Information System
                     </option>
                 </select>
                 <select name="section" class="dropdown form-control-sm mb-2" id="section">
@@ -172,14 +172,13 @@
     </div>
     <!-- ================= MAINNN ================ -->
     <div class="mainBoard">
-        
         <div class="cardMain">
-           
             <div class="container" style="width: 100%">
                 <div class="cardName text-center">Filter Students</div>
                 <table id="example" class="table table-striped">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
@@ -191,6 +190,7 @@
                     <tbody id="tbody"></tbody>
                     <tfoot>
                         <tr>
+                            <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
@@ -203,10 +203,10 @@
             </div>
         </div>
         <div class="cardMain">
-           
-            <div class="displayer container" >
-                <div class="cardName text-center"> Search All Users</div>
-                <table id="example1" class="table table-striped ">
+            <div class="container" style="width: 100%">
+                <div class="cardName text-center">Search All Users</div>
+                <table id="example1" class="table table-striped"
+                    style="max-width: 100%; max-height: 300px; overflow: auto">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -220,6 +220,8 @@
                             <th>Section</th>
                             <th>User Type</th>
                             <th>Year</th>
+                            <th>Action</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -229,6 +231,78 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+
+    <div id="editModal" class="modal" tabindex="-1" >
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Details</h5>
+                    <button type="button" class="btn-close"  aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <!-- Input fields -->
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" class="form-control-sm mb-2" readonly/> <br>
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" class="form-control-sm mb-2"  readonly/><br>
+                        <label for="contactNumber">Contact Number:</label>
+                        <input type="text" id="contactNumber" class="form-control-sm mb-2" /><br>
+                        <label for="studentNumber">Student Number:</label>
+                        <input type="text" id="studentNumber" class="form-control-sm mb-2"/><br>
+                        <label for="age">Age:</label>
+                        <input type="text" id="age" class="form-control-sm mb-2"/><br>
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" class="form-control-sm mb-2" style="width: 250px;"/> <br>
+
+                        <label>Program</label>
+                        <select  class="dropdown form-control-sm mb-2" id="modal_program">
+                            <option value="" disabled selected>Select Program</option>
+                            <option value="CS">Bachelor of Science in Computer Science</option>
+                            <option value="IT">Bachelor of Science in Information Technology</option>
+                            <option value="IS">Bachelor of Science in Information System</option>
+                        </select>
+                        <label>Section</label>
+                        <select class="dropdown form-control-sm mb-2" id="modal_section">
+                            <option value="" disabled selected>Select Section</option>
+                            <option value="1A">1 A</option>
+                            <option value="1B">1 B</option>
+                            <option value="1C">1 C</option>
+                            <option value="1D">1 D</option>
+                            <option value="1E">1 E</option>
+                            <option value="1E">1 F</option>
+                        </select>
+                        <label>Year</label>
+                        <select  class="dropdown form-control-sm mb-2" id="modal_year">
+                            <option value="" disabled selected>Select Academic Year</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                        </select>
+                        <label>User type</label>
+                        <select  class="form-control-sm mb-2" id="user_type">
+                            <option value="" disabled selected>Select User Type</option>
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closer">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" >Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="js/admin.js"></script>

@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getDatabase,remove, set, ref, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Initialize Firebase
@@ -22,6 +22,7 @@ onAuthStateChanged(auth, async function(user) {
             var uid = user.uid;
             console.log("User UID:", uid);
             
+            await getName(uid)
             
             await getTotalUsersCount();
             await displayCharts(uid);
@@ -32,6 +33,19 @@ onAuthStateChanged(auth, async function(user) {
             window.location.href = "index.html"
         }
 });
+
+async function getName(uid){
+    const userSnapshot = await get(ref(database, 'users/' + uid));
+    const userData = userSnapshot.val();
+        if (userData) {
+            // User data found, update HTML content with first name and last name
+            let firstName = userData.firstname;
+            let lastName = userData.lastname;
+            document.getElementById('userinfo').innerHTML = 'Welcome, ' + firstName + ' ' + lastName;
+        } else {
+            console.log('User data not found.');
+        } 
+}
 
 
 
@@ -137,10 +151,11 @@ function handleButtonClick(event) {
                 console.log(matchingUsers);
                 // Clear DataTable before adding new data
                 $("#example").DataTable().clear().draw();
-  
+                var idnumber = 0;
                 // Add matching users to the DataTable
                 matchingUsers.forEach((user) => {
                     $("#example").DataTable().row.add([
+                        ++idnumber,
                         user.firstname,
                         user.lastname,
                         user.email,
@@ -239,7 +254,6 @@ async function GetAllDataOnce() {
                     students.push(childSnapshot.val());
                 });
 
-                console.log(students);
                 AddAllItemsToTable(students);
             } else {
                 console.log("No data available");
@@ -250,37 +264,127 @@ async function GetAllDataOnce() {
         });
 }
 
-// Function to add all items to the DataTable
 function AddAllItemsToTable(students) {
-    idnumber = 0;
-    if ($.fn.DataTable.isDataTable('#example1')) {
-        // DataTable is already initialized, clear existing data
+    let idnumber = 0;
+    const table = $('#example1').DataTable();
+
+    if (table) {
         table.clear().draw();
-    } else {
-        // Initialize DataTable
-        table = $('#example1').DataTable();
     }
 
-    students.forEach(element => {
-        AddItemToTable(
-        element.firstname,
-        element.lastname, 
-        element.contactNumber,
-        element.studentNumber,
-        element.age,  
-        element.email,  
-        element.selectedProgram,
-        element.section, 
-        element.userType,
-        element.year)
+    students.forEach((element) => {
+        const data = [
+            ++idnumber,
+            element.firstname,
+            element.lastname,
+            element.contactNumber,
+            element.studentNumber,
+            element.age,
+            element.email,
+            element.selectedProgram,
+            element.section,
+            element.userType,
+            element.year,
+            '<button class="btn btn-success edit-btn">Edit</button>',
+            '<button class="btn btn-danger del-btn">Delete</button>'
+        ];
+        table.row.add(data).draw();
+    });
+
+    $('#example1').off('click', '.edit-btn').on('click', '.edit-btn', function () {
+        const row = $(this).closest('tr');
+        const rowData = table.row(row).data();
+        populateModal(rowData);
+        $('#editModal').modal('show');
+    });
+    $('#example1').off('click', '.del-btn').on('click', '.del-btn', function () {
+    const row = $(this).closest('tr');
+    const rowData1 = table.row(row).data();
+    let name = rowData1[1];
+    let lname = rowData1[2];
+
+    const confirmDelete = window.confirm(`Are you sure you want to delete ${name} ${lname}?`);
+    if (confirmDelete) {
+        deleteUser(name, lname);
+    } else {
+        console.log("Deletion cancelled");
+    }
+});
+}
+
+function populateModal(rowData) {
+    const fields = ['#firstName', '#lastName', '#contactNumber', '#studentNumber', '#age', '#email', '#modal_program', '#modal_section', '#user_type', '#modal_year'];
+    fields.forEach((field, index) => {
+        $(`#editModal ${field}`).val(rowData[index + 1]);
+    });
+}
+function deleteUser(name, lname) {
+    const usersRef = ref(database, 'users/');
+    get(usersRef).then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const user = childSnapshot.val();
+            if (user.firstname === name && user.lastname === lname) {
+                const userId = childSnapshot.key;
+                remove(ref(database, `users/${userId}`))
+                    .then(() => {
+                        console.log("User deleted successfully");
+                        GetAllDataOnce();
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting user:", error);
+                    });
+            }
+        });
+    });
+}
+function UpdateUserDetails() {
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
+    let age = document.getElementById('age').value;
+    let email = document.getElementById('email').value;
+    let selectedProgram = document.getElementById('modal_program').value;
+    let section = document.getElementById('modal_section').value;
+    let userType = document.getElementById('user_type').value;
+    let contactNumber = document.getElementById('contactNumber').value;
+    let studentNumber = document.getElementById('studentNumber').value;
+    let year = document.getElementById('modal_year').value;
+
+    const usersRef = ref(database, 'users/');
+    get(usersRef).then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const user = childSnapshot.val();
+            if (user.firstname === firstName && user.lastname === lastName) {
+                const userId = childSnapshot.key;
+                set(ref(database, `users/${userId}`), {
+                    firstname: firstName,
+                    lastname: lastName,
+                    contactNumber: contactNumber,
+                    studentNumber: studentNumber,
+                    age: age,
+                    email: email,
+                    selectedProgram: selectedProgram,
+                    section: section,
+                    userType: userType,
+                    year: year
+                }).then(() => {
+                    console.log('User details updated successfully');
+                    alert("Details Updated Successfully!");
+                    $('#editModal').modal('hide');
+                    GetAllDataOnce();
+
+                }).catch((error) => {
+                    console.error('Error updating user details: ', error);
+                });
+            }
+        });
+    }).catch((error) => {
+        console.error('Error fetching users from Firebase: ', error);
     });
 }
 
-// Function to add an item to the DataTable
-function AddItemToTable(firstname, lastname,contactNumber, studentNumber, age, email, selectedProgram, section, userType, year) {
-    let data = [++idnumber, firstname, lastname,contactNumber, studentNumber, age, email, selectedProgram, section, userType, year];
-    table.row.add(data).draw(); // Add data to the DataTable
-}
+$('#editModal #saveChanges').on('click', UpdateUserDetails);
+$('#editModal .btn-close, #editModal #closer').on('click', () => $('#editModal').modal('hide'));
+
 
 // When the window is loaded, fetch data and populate DataTable
 window.onload = function () {

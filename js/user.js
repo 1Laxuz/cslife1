@@ -25,6 +25,7 @@ onAuthStateChanged(auth, async function(user) {
             
             // Call getScores function after user is authenticated
             await getScores(uid);
+            await getName(uid);
         } else {
             // No user is signed in.
             console.log("No user signed in.");
@@ -32,6 +33,18 @@ onAuthStateChanged(auth, async function(user) {
         }
 });
 
+async function getName(uid){
+    const userSnapshot = await get(ref(database, 'users/' + uid));
+    const userData = userSnapshot.val();
+        if (userData) {
+            // User data found, update HTML content with first name and last name
+            let firstName = userData.firstname;
+            let lastName = userData.lastname;
+            document.getElementById('userinfo').innerHTML = 'Welcome, ' + firstName + ' ' + lastName;
+        } else {
+            console.log('User data not found.');
+        } 
+  }
 window.addEventListener('dataFetched', () => {
     const canvas = document.getElementById('scoreChart');
     const ctx = canvas.getContext('2d');
@@ -61,11 +74,11 @@ window.addEventListener('dataFetched', () => {
 
 function getColor(score) {
     if (score >= 8) {
-        return 'green'; // Green for scores >= 90
+        return 'green'; 
     } else if (score >= 5) {
-        return 'blue'; // Orange for scores >= 70
+        return 'blue'; 
     } else {
-        return 'red'; // Red for scores < 70
+        return 'red'; 
     }
 }
 

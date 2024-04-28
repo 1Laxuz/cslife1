@@ -32,13 +32,26 @@ onAuthStateChanged(auth, async function (user) {
     console.log("User UID:", uid);
     // Call getScores function after user is authenticated
     // await getSectionDetails(uid);
-    // await getAllScores(uid);
+    await getName(uid)
   } else {
     // No user is signed in.
     console.log("No user signed in.");
     window.location.href = "index.html";
   }
 });
+async function getName(uid){
+  const userSnapshot = await get(ref(database, 'users/' + uid));
+  const userData = userSnapshot.val();
+      if (userData) {
+          // User data found, update HTML content with first name and last name
+          let firstName = userData.firstname;
+          let lastName = userData.lastname;
+          document.getElementById('userinfo').innerHTML = 'Welcome, ' + firstName + ' ' + lastName;
+      } else {
+          console.log('User data not found.');
+      } 
+}
+
 
 function handleButtonClick(event) {
   // Get selected values when the button is clicked
@@ -135,6 +148,8 @@ function handleButtonClick(event) {
                               ]);
                               $("#example1").DataTable().row.add([
                                   scoresIndex++, // Add auto-incremented index for scores
+                                  user.firstname,
+                                  user.lastname,
                                   scoresData.scores1,
                                   scoresData.scores2,
                                   scoresData.scores3,
@@ -163,9 +178,6 @@ function handleButtonClick(event) {
           console.error("Error getting data:", error);
       });
 }
-
-
-
 
 
 const filterButton = document.getElementById("filterButton");
