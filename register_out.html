@@ -123,23 +123,23 @@
             }).then(() => {
                 
                 alert("Account Created");
-
+                
                 // Check if the user type is 'student'
-                if (userType.value === 'student') {
-                    // If user is a student, set scores
-                    set(ref(db, 'tablesScore/' + credentials.user.uid), {
-                        scores1: "",
-                        scores2: "",
-                        scores3: "",
-                        scores4: "",
-                        scores5: "",
-                        scores6: ""
-                    }).then(() => {
-                        console.log('Scores set successfully.');
-                    }).catch(error => {
-                        console.error('Error setting scores:', error);
-                    });
-                }
+                // if (userType.value === 'student') {
+                //     // If user is a student, set scores
+                //     set(ref(db, 'tablesScore/' + credentials.user.uid), {
+                //         scores1: "",
+                //         scores2: "",
+                //         scores3: "",
+                //         scores4: "",
+                //         scores5: "",
+                //         scores6: ""
+                //     }).then(() => {
+                //         console.log('Scores set successfully.');
+                //     }).catch(error => {
+                //         console.error('Error setting scores:', error);
+                //     });
+                // }
 
                 window.location.href = "index.html";
             }).catch(error => {
